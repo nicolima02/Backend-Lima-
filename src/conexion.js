@@ -1,7 +1,9 @@
 const mongoose = require("mongoose")
+const dotenv = require("dotenv")
+dotenv.config
 
-const connectionString = "mongodb://localhost:27017/ecommerce"
-
+const connectionString = "mongodb+srv://nicolima:AXR6rX0SYbupWPfj@cluster0.fd1ldtn.mongodb.net/ecommerce"
+//"mongodb://localhost:27017/ecommerce"
 const initMongoDB = async ()=>{
     try{
         await mongoose.connect(connectionString)

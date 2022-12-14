@@ -35,12 +35,10 @@ async function postData(url = '', data = {}) {
 
 formlogin.addEventListener("submit", async(ev) =>{
     // ev.preventDefault()
-    
     try{
         const data = {
             nombre: login.value
         }
-
         const url = 'http://localhost:8080/'
         response = await postData(url, data)   
         
