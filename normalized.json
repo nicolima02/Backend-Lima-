@@ -1,0 +1,42 @@
+{
+	"entities": {
+		"author": {
+			"nico@gmail.com": {
+				"mail": "nico@gmail.com",
+				"nombre": "nicolas",
+				"apellido": "lima",
+				"edad": "22",
+				"aliass": "nico",
+				"avatar": "aa"
+			},
+			"nicolas@gmail.com": {
+				"mail": "nicolas@gmail.com",
+				"nombre": "nicolas",
+				"apellido": "lima",
+				"edad": "23",
+				"aliass": "nico",
+				"avatar": "aaaa"
+			}
+		},
+		"message": {
+			"639a4a07f0a2a323ffbb38cc": {
+				"_id": "639a4a07f0a2a323ffbb38cc",
+				"author": "nico@gmail.com",
+				"texto": "hola",
+				"date": "14/12/2022, 19:11:19",
+				"__v": 0
+			},
+			"639b16540444b24e5f2d6f42": {
+				"_id": "639b16540444b24e5f2d6f42",
+				"author": "nicolas@gmail.com",
+				"texto": "hola",
+				"date": "15/12/2022, 09:43:00",
+				"__v": 0
+			}
+		}
+	},
+	"result": [
+		"639a4a07f0a2a323ffbb38cc",
+		"639b16540444b24e5f2d6f42"
+	]
+}
