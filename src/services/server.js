@@ -39,7 +39,7 @@ const StoreOptions = {
     }),
     secret:'thisismysecret',
     resave:false,
-    saveUninitialized:true,
+    saveUninitialized:false,
     cookie:{
         maxAge: 600000
     }
@@ -85,9 +85,11 @@ app.post("/", async(req,res)=>{
 })
 
 app.get("/logout", (req,res)=>{
-    // res.render("logout", {datos: {nombre:nombre}, layout:defaultLayoutPath})
-    req.session.destroy()
-    res.redirect("/")
+    const nombre = req.session.nombre
+        res.render("logout", {datos: {nombre:nombre}, layout:defaultLayoutPath})
+    setTimeout(() => {
+        req.session.destroy()
+    }, 1000);
 })
 
 
