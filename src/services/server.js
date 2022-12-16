@@ -65,15 +65,18 @@ initWsServer(myHTTPServer);
 
 
 app.get("/", async(req,res) =>{
-    req.session.destroy()
-    res.render("main", {layout: defaultLayoutPath}) 
-
+    const nombre = req.session.nombre
+    if (nombre){
+        res.render("logged", {datos: {nombre:nombre}, layout: defaultLayoutPath}) 
+    }else{
+        res.render("main", {layout: defaultLayoutPath}) 
+    }
 })
 
-app.get("/login", async(req,res)=>{
-    nombre = req.session.nombre
-    res.render("logged", {datos: {nombre:nombre}, layout: defaultLayoutPath}) 
-})
+// app.get("/login", async(req,res)=>{
+//     nombre = req.session.nombre
+//     res.render("logged", {datos: {nombre:nombre}, layout: defaultLayoutPath}) 
+// })
 
 app.post("/", async(req,res)=>{
     const {nombre} = req.body
