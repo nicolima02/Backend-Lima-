@@ -6,11 +6,17 @@ const { initWsServer, socketEmit } = require("./socket")
 const io = require ("socket.io")
 const path = require("path")
 const app = express()
+const {initMongoDB} = require("../conexion.js")
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const socket = io()
+const {loginFunc, signupFunc} = require("./auth")
 const MongoStore = require("connect-mongo")
 const dotenv = require("dotenv")
+const passport = require("passport")
+const isLoggedIn = require('../middlewares/islogged')
+
+
 app.use(express.static("public"))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -22,6 +28,7 @@ const partialFolderPath = `${viewFolderPath}/partials`
 const defaultLayoutPath = `${layoutFolderPath}/index.hbs`
 app.use("/api", mainRouter)
 
+initMongoDB()
 const sessionConfig = {
     secret: 'thisismysecret',
     cookie:{maxAge: 60000 *10},
@@ -48,6 +55,10 @@ const StoreOptions = {
 const mySecret = 'mySecret'
 app.use(session(StoreOptions))
 app.use(cookieParser(mySecret))
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use('login', loginFunc)
+passport.use('signup', signupFunc)
 app.set("view engine", "hbs")
 app.set("views", viewFolderPath)
 app.engine("hbs", engine({
@@ -65,31 +76,32 @@ initWsServer(myHTTPServer);
 
 
 app.get("/", async(req,res) =>{
-    const nombre = req.session.nombre
-    if (nombre){
-        res.render("logged", {datos: {nombre:nombre}, layout: defaultLayoutPath}) 
+    req.session.connect = "conectado"  
+    if (req.session.nombre){
+        res.render("logged", {datos: {nombre:req.session.nombre}, layout: defaultLayoutPath}) 
     }else{
         res.render("main", {layout: defaultLayoutPath}) 
     }
 })
 
-// app.get("/login", async(req,res)=>{
-//     nombre = req.session.nombre
-//     res.render("logged", {datos: {nombre:nombre}, layout: defaultLayoutPath}) 
-// })
-
 app.post("/", async(req,res)=>{
     const {nombre} = req.body
     req.session.nombre = nombre
-    res.cookie('nombre', nombre).send({proceso:'ok'})
+    // res.cookie('nombre', nombre).send({proceso:'ok'})
+    res.send({proceso:'ok'}) 
+})
+
+app.get('/api/login', async (req,res)=>{
+    res.render('login', {layout: defaultLayoutPath})
+})
+app.get('/api/signup', async (req,res)=>{
+    res.render('signup', {layout: defaultLayoutPath})
 })
 
 app.get("/logout", (req,res)=>{
     const nombre = req.session.nombre
-        res.render("logout", {datos: {nombre:nombre}, layout:defaultLayoutPath})
-    setTimeout(() => {
-        req.session.destroy()
-    }, 1000);
+    res.render("logout", {datos: {nombre:nombre}, layout:defaultLayoutPath})
+    req.session.destroy()
 })
 
 

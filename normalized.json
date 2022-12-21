@@ -3,40 +3,56 @@
 		"author": {
 			"nico@gmail.com": {
 				"mail": "nico@gmail.com",
-				"nombre": "nicolas",
-				"apellido": "lima",
+				"nombre": "go",
+				"apellido": "nadn",
 				"edad": "22",
 				"aliass": "nico",
-				"avatar": "aa"
-			},
-			"nicolas@gmail.com": {
-				"mail": "nicolas@gmail.com",
-				"nombre": "nicolas",
-				"apellido": "lima",
-				"edad": "23",
-				"aliass": "nico",
-				"avatar": "aaaa"
+				"avatar": "ansnda"
 			}
 		},
 		"message": {
-			"639a4a07f0a2a323ffbb38cc": {
-				"_id": "639a4a07f0a2a323ffbb38cc",
+			"63909ba03d4cd5b2ce4a6cbb": {
+				"_id": "63909ba03d4cd5b2ce4a6cbb",
 				"author": "nico@gmail.com",
 				"texto": "hola",
-				"date": "14/12/2022, 19:11:19",
+				"date": "7/12/2022, 10:56:48",
 				"__v": 0
 			},
-			"639b16540444b24e5f2d6f42": {
-				"_id": "639b16540444b24e5f2d6f42",
-				"author": "nicolas@gmail.com",
+			"63909caca8b8afab60a9f619": {
+				"_id": "63909caca8b8afab60a9f619",
+				"author": "nico@gmail.com",
+				"texto": "chau",
+				"date": "7/12/2022, 11:01:16",
+				"__v": 0
+			},
+			"6399d143605d9bdb7d638385": {
+				"_id": "6399d143605d9bdb7d638385",
+				"author": "nico@gmail.com",
+				"texto": "hola aa",
+				"date": "14/12/2022, 10:36:03",
+				"__v": 0
+			},
+			"6399da0ab3d636da19d2ef57": {
+				"_id": "6399da0ab3d636da19d2ef57",
+				"author": "nico@gmail.com",
+				"texto": "",
+				"date": "14/12/2022, 11:13:30",
+				"__v": 0
+			},
+			"6399da0cb3d636da19d2ef59": {
+				"_id": "6399da0cb3d636da19d2ef59",
+				"author": "nico@gmail.com",
 				"texto": "hola",
-				"date": "15/12/2022, 09:43:00",
+				"date": "14/12/2022, 11:13:32",
 				"__v": 0
 			}
 		}
 	},
 	"result": [
-		"639a4a07f0a2a323ffbb38cc",
-		"639b16540444b24e5f2d6f42"
+		"63909ba03d4cd5b2ce4a6cbb",
+		"63909caca8b8afab60a9f619",
+		"6399d143605d9bdb7d638385",
+		"6399da0ab3d636da19d2ef57",
+		"6399da0cb3d636da19d2ef59"
 	]
 }

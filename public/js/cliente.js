@@ -13,8 +13,14 @@ const inputAvatar = document.querySelector(".inputAvatar")
 const formChat = document.querySelector(".formulario_chat")
 const inputMail = document.querySelector(".inputUser")
 const formlogin = document.querySelector(".form_login")
+const formloginComplete = document.querySelector(".form_login_complete")
 const login = document.querySelector(".input_nombre_login")
+const username = document.querySelector(".input_username_login")
+const password = document.querySelector(".input_password_login")
 const logincont = document.querySelector(".login-container")
+const formsignup = document.querySelector(".form_signup")
+const username_sign = document.querySelector(".input_username_signup")
+const password_sign = document.querySelector(".input_password_signup")
 
 async function postData(url = '', data = {}) {
     const response = await fetch(url, {
@@ -33,22 +39,55 @@ async function postData(url = '', data = {}) {
     return response.json();  
     }
 
-formlogin.addEventListener("submit", async(ev) =>{
+formlogin?.addEventListener("submit", async(ev) =>{
     // ev.preventDefault()
     try{
         const data = {
-            nombre: login.value
+            username: username.value,
+            password: password.value
         }
-        const url = 'http://localhost:8080/'
+        const url = 'http://localhost:8080/api/login'
+        console.log("post");
         response = await postData(url, data)   
         
     }catch(err){
         console.log(err)
     }
-
 })
 
-form.addEventListener('submit', async (ev) =>{
+formsignup?.addEventListener("submit",async(ev)=>{
+    // ev.preventDefault()
+    try {
+        const data = {
+            username: username_sign.value,
+            password: password_sign.value
+        }
+        const url = 'http://localhost:8080/api/signup'
+        response = await postData(url,data)
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
+// formloginComplete.addEventListener("submit", async(ev) =>{
+//     //ev.preventDefault()
+//     try{
+//         const data = {
+//             username: username.value,
+//             password: password.value
+//         }
+//         console.log("psot")
+//         const url = 'http://localhost:8080/api/login'
+//         response = await postData(url, data)   
+        
+//     }catch(err){
+//         console.log(err)
+//     }
+
+// })
+
+form?.addEventListener('submit', async (ev) =>{
     ev.preventDefault()
     console.log("Se hizo click en submit")
     

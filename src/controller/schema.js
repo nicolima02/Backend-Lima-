@@ -4,6 +4,7 @@ const { stringify } = require("uuid")
 const prodCollection = "productos"
 const carritoCollection = "carritos"
 const chatCollection = "chats"
+const userCollection = "users"
 
 const productosSchema = new mongoose.Schema(
     {
@@ -41,8 +42,16 @@ const chatSchema = new mongoose.Schema(
         date: {type:String, require : true}
     }
 )
+
+const userSchema = new mongoose.Schema(
+    {
+        username: {type:String, required:true, unique:true},
+        password: {type:String, required:true}
+    }
+)
+
 const productoModel = mongoose.model(prodCollection, productosSchema)
 const carritoModel = mongoose.model(carritoCollection, carritoSchema)
 const chatModel = mongoose.model(chatCollection, chatSchema)
-
-module.exports = {productoModel, carritoModel, chatModel}
+const userModel = mongoose.model(userCollection, userSchema)
+module.exports = {productoModel, carritoModel, chatModel, userModel}

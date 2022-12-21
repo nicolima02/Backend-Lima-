@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
-dotenv.config
+dotenv.config()
 
 const connectionString = "mongodb+srv://nicolima:AXR6rX0SYbupWPfj@cluster0.fd1ldtn.mongodb.net/ecommerce"
 
