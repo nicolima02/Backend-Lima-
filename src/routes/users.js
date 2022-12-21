@@ -17,9 +17,17 @@ users.post('/signup', (req, res, next) => {
     })(req, res, next);
 });
 
-users.post('/login',passport.authenticate('login', passportOptions),function(req,res){
-    res.json({msg: user})
-});
+users.post(
+    '/login',
+    passport.authenticate('login', passportOptions),
+    (req, res) => {
+        res.redirect("/")
+        res.json({ msg: 'Welcome!', user: req.user });
+        
+    },
+);
+
+
 
 
 // users.get('/home',getHome)

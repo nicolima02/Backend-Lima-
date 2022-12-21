@@ -3,6 +3,11 @@ body{
     
 }
 
+.button_iniciar{
+    display: flex;
+    margin: 10px;
+}
+
 #lista{
     list-style: none;
     display: flex;

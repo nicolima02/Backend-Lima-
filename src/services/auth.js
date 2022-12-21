@@ -27,30 +27,19 @@ const signup = async(req,username,password,done)=>{
 const login = async(req,username,password,done) =>{
     console.log("login");
     const user = await userModel.findOne({username, password})
-    
-    if (!user) return done(null, false, { mensaje: 'Usuario no encontrado' });
-
+    if (!user) return done(null, false, { mensaje: 'Usuario no encontrado' });  
     return done(null, user)
-    
 }
 
-// const login = async (req, username, password, done) => {
-//     console.log("LOGINNN")
-//     const user = await userModel.findOne({ username ,password});
-//     console.log('SALIO TODO BIEN');
-//     return done(null, user);
-// };
 const loginFunc = new Strategy(strategyOptions,login)
 const signupFunc = new Strategy(strategyOptions, signup)
 module.exports = {loginFunc, signupFunc}
 
 passport.serializeUser((user,done)=>{
-    console.log('serialize');
-    done(null,user._id)
+    done(null,user.username)
 })
 
 passport.deserializeUser(async(userId,done)=>{
-    console.log('deserialize');
-    const user = await userModel.findById(userId)
+    const user = await userModel.findOne({userId})
     return done(null,user)
 })

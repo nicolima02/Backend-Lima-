@@ -49,7 +49,6 @@ formlogin?.addEventListener("submit", async(ev) =>{
         const url = 'http://localhost:8080/api/login'
         console.log("post");
         response = await postData(url, data)   
-        
     }catch(err){
         console.log(err)
     }
