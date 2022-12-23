@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const { stringify } = require("uuid")
-
+const bcrypt = require('bcrypt')
 const prodCollection = "productos"
 const carritoCollection = "carritos"
 const chatCollection = "chats"
@@ -49,6 +49,15 @@ const userSchema = new mongoose.Schema(
         password: {type:String, required:true}
     }
 )
+
+userSchema.methods.encryptPassword = async password => {
+    const salt = await bcrypt.genSalt(15)
+    return await bcrypt.hash(password, salt)
+}
+
+userSchema.methods.matchPassword = async function(password) {
+    return await bcrypt.compare(password, this.password)
+}
 
 const productoModel = mongoose.model(prodCollection, productosSchema)
 const carritoModel = mongoose.model(carritoCollection, carritoSchema)

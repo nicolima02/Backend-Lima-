@@ -35,6 +35,12 @@ const StoreOptions = {
     maxAge: 600000,
     },
 };
+const sessionConfig = {
+    secret: "thisismysecret",
+  cookie: { maxAge: 60000 * 10 },
+    saveUninitialized: true,
+    resave: false,
+};
 
 const mySecret = "mySecret";
 
@@ -51,12 +57,6 @@ const defaultLayoutPath = `${layoutFolderPath}/index.hbs`;
 app.use("/api", mainRouter);
 
 initMongoDB();
-const sessionConfig = {
-    secret: "thisismysecret",
-  cookie: { maxAge: 60000 * 10 },
-    saveUninitialized: true,
-    resave: false,
-};
 
 passport.use("login", loginFunc);
 passport.use("signup", signupFunc);
@@ -79,14 +79,15 @@ const myWebsocketServer = io(myHTTPServer);
 initWsServer(myHTTPServer);
 
 app.get("/", async (req, res) => {
-    req.session.connect = "conectado";
-    if (req.session.passport?.user) {
-        res.render("logged", {
+    if (req.session.passport?.user !== '404' && req.session.passport?.user) {
+        await res.render("logged", {
         datos: { nombre: req.session.passport.user},
         layout: defaultLayoutPath,
     });
-    } else {
-    res.render("main", { layout: defaultLayoutPath });
+    } else if (req.session.passport?.user === '404') {
+        res.redirect("/api/noEncontrado")
+    }else{
+        res.render("main", { layout: defaultLayoutPath });
     }
 });
 
@@ -102,6 +103,12 @@ app.get("/api/login", async (req, res) => {
 app.get("/api/signup", async (req, res) => {
     res.render("signup", { layout: defaultLayoutPath });
 });
+
+app.get('/api/noEncontrado', async (req,res) =>{
+    req.session.destroy()
+    res.render('noEncontrado', {layout:defaultLayoutPath})
+    
+})
 
 app.get("/", isLoggedIn,async (req, res) => {
     res.json({msg:'logueado'})

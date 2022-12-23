@@ -21,12 +21,9 @@ users.post(
     '/login',
     passport.authenticate('login', passportOptions),
     (req, res) => {
-        res.redirect("/")
-        res.json({ msg: 'Welcome!', user: req.user });
-        
+        res.json({user: req.user});
     },
 );
-
 
 
 

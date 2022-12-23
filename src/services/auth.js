@@ -16,7 +16,9 @@ const signup = async(req,username,password,done)=>{
     console.log("signup")
     try {
         await initMongoDB()
-        const newUser = await userModel.create({username,password})
+        const newUser = new userModel({username,password})
+        newUser.password = await newUser.encryptPassword(password)
+        await newUser.save()
         return done(null,newUser)
     } catch (error) {
         console.log(error)
@@ -26,9 +28,18 @@ const signup = async(req,username,password,done)=>{
 
 const login = async(req,username,password,done) =>{
     console.log("login");
-    const user = await userModel.findOne({username, password})
-    if (!user) return done(null, false, { mensaje: 'Usuario no encontrado' });  
-    return done(null, user)
+    let user = await userModel.findOne({username})
+    
+    if (!user){
+        return done(null, user= {username:'404', password: ''}, { mensaje: 'Usuario no encontrado' });  
+    }else{
+        const match = await user.matchPassword(password);
+        if(match){
+            return done(null,user)
+        }else{
+            return done(null,false)
+        }
+    } 
 }
 
 const loginFunc = new Strategy(strategyOptions,login)
