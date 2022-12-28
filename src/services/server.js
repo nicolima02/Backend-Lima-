@@ -15,6 +15,7 @@ const MongoStore = require("connect-mongo");
 const dotenv = require("dotenv");
 const passport = require("passport");
 const isLoggedIn = require("../middlewares/islogged");
+const minimist = require('minimist')
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -107,7 +108,19 @@ app.get("/api/signup", async (req, res) => {
 app.get('/api/noEncontrado', async (req,res) =>{
     req.session.destroy()
     res.render('noEncontrado', {layout:defaultLayoutPath})
-    
+})
+
+app.get('/info', async (req,res)=>{
+    res.json({
+        argumentos: minimist(process.argv.slice(2), {alias:{p:'puerto'},default:{p:8080}}),
+        SistemaOperativo: process.platform,
+        VersionNode: process.version,
+        MemoriaUsada: JSON.stringify(process.memoryUsage()),
+        CarpetaProyecto: process.cwd(),
+        PathEjecucion: process.execPath,
+        IDProceso: process.pid
+
+    })
 })
 
 app.get("/", isLoggedIn,async (req, res) => {

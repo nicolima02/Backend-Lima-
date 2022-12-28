@@ -20,9 +20,11 @@ users.post('/signup', (req, res, next) => {
 users.post(
     '/login',
     passport.authenticate('login', passportOptions),
-    (req, res) => {
-        res.json({user: req.user});
-    },
+    (req, res) => {  
+        if(req.user){
+            res.json({msg: 'Bienvenido', user: req.user.username});
+        }
+    }
 );
 
 

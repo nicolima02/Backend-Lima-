@@ -31,13 +31,14 @@ const login = async(req,username,password,done) =>{
     let user = await userModel.findOne({username})
     
     if (!user){
-        return done(null, user= {username:'404', password: ''}, { mensaje: 'Usuario no encontrado' });  
+        return done(null, false, { message: 'Usuario no encontrado' });  
     }else{
         const match = await user.matchPassword(password);
         if(match){
-            return done(null,user)
-        }else{
-            return done(null,false)
+            return done(null,user)   
+        }else{      
+            console.log('contraseña invalida');
+            return done(null,false,{message: 'Contraseña invalida'})
         }
     } 
 }
