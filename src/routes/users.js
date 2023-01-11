@@ -17,18 +17,32 @@ users.post('/signup', (req, res, next) => {
     })(req, res, next);
 });
 
+// users.post(
+//     '/login',
+//     passport.authenticate('login', passportOptions),
+//     (req, res) => {  
+//         if(req.user){
+//             res.json({msg: 'Bienvenido', user: req.user.username});
+//         }
+//     }
+// );
 users.post(
     '/login',
-    passport.authenticate('login', passportOptions),
-    (req, res) => {  
+    function(req, res, next) {
+        passport.authenticate('login', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) {
+            res.status(401);
+            res.end(info.message);
+            return;
+        }
         if(req.user){
             res.json({msg: 'Bienvenido', user: req.user.username});
         }
-    }
-);
+        })(req, res, next);
+});
 
 
 
-// users.get('/home',getHome)
 
 module.exports = users

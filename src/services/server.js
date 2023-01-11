@@ -16,6 +16,8 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const isLoggedIn = require("../middlewares/islogged");
 const minimist = require('minimist')
+const os = require("os")
+
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -79,6 +81,7 @@ const myWebsocketServer = io(myHTTPServer);
 
 initWsServer(myHTTPServer);
 
+
 app.get("/", async (req, res) => {
     if (req.session.passport?.user !== '404' && req.session.passport?.user) {
         await res.render("logged", {
@@ -112,6 +115,7 @@ app.get('/api/noEncontrado', async (req,res) =>{
 
 app.get('/info', async (req,res)=>{
     res.json({
+        nucleos:os.cpus().length,
         argumentos: minimist(process.argv.slice(2), {alias:{p:'puerto'},default:{p:8080}}),
         SistemaOperativo: process.platform,
         VersionNode: process.version,

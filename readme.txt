@@ -1,1 +1,1 @@
- 
+ Desde la carpeta raiz, usar el comando node src/index.js --CLUSTER para iniciar el servidor en modo cluster, sino iniciara en modo fork
