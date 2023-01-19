@@ -17,7 +17,8 @@ const passport = require("passport");
 const isLoggedIn = require("../middlewares/islogged");
 const minimist = require('minimist')
 const os = require("os")
-
+const compression = require('compression')
+const loggers = require('../utils/loggers')
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -46,6 +47,10 @@ const sessionConfig = {
 };
 
 const mySecret = "mySecret";
+loggers()
+loggers('Warn')
+loggers('Error')
+
 
 app.use(cookieParser(mySecret));
 app.use(session(StoreOptions));
@@ -114,6 +119,20 @@ app.get('/api/noEncontrado', async (req,res) =>{
 })
 
 app.get('/info', async (req,res)=>{
+    res.json({
+        nucleos:os.cpus().length,
+        argumentos: minimist(process.argv.slice(2), {alias:{p:'puerto'},default:{p:8080}}),
+        SistemaOperativo: process.platform,
+        VersionNode: process.version,
+        MemoriaUsada: JSON.stringify(process.memoryUsage()),
+        CarpetaProyecto: process.cwd(),
+        PathEjecucion: process.execPath,
+        IDProceso: process.pid
+
+    })
+})
+
+app.get('/infogzip',compression() , async (req,res)=>{
     res.json({
         nucleos:os.cpus().length,
         argumentos: minimist(process.argv.slice(2), {alias:{p:'puerto'},default:{p:8080}}),

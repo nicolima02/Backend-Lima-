@@ -8,7 +8,7 @@ rutaRandoms.get('/', async(req,res)=>{
     if(req.query.cant){
         cantidad = parseInt(req.query.cant)
     }
-    const computo = fork('./src/utils/randomGenerator.js')
+    const computo = ('./src/utils/randomGenerator.js')
     computo.send({mensaje:'start', cantidad:cantidad})
     computo.on('message', (lista)=>{
         res.json({cantidad:cantidad,

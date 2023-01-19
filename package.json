@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "artillery": "artillery quick --count 50 -n 20 http://localhost:8080/info",
+    "autocannon": "autocannon -c 100 -d 20 http://localhost:8080/info",
+    "0x": "0x src/services/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,9 +18,12 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "0x": "^5.4.1",
+    "autocannon": "^7.10.0",
     "bcrypt": "^5.1.0",
     "child_process": "^1.0.2",
     "cluster": "^0.7.7",
+    "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
@@ -27,6 +33,7 @@
     "firebase-admin": "^11.3.0",
     "forever": "^4.0.3",
     "knex": "^2.3.0",
+    "log4js": "^6.7.1",
     "minimist": "^1.2.7",
     "moment": "^2.29.4",
     "mongoose": "^6.7.5",

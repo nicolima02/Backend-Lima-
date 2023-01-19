@@ -9,7 +9,6 @@ const numCPU = os.cpus().length
 
 if(args.CLUSTER){
     if(cluster.isPrimary){   
-    console.log(process.pid);
     for (let i = 0; i < numCPU; i++) {
         cluster.fork()
     }
