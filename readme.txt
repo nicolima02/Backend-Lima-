@@ -1,1 +1,1 @@
- Desde la carpeta raiz, usar el comando node src/index.js --CLUSTER para iniciar el servidor en modo cluster, sino iniciara en modo fork
+Para realizar el test de artillery en modo cluster, iniciar el servidor con node src/services/server.js --CLUSTER y despues en otra terminal ejecutar el comando npm run artillery.
