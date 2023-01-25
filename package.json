@@ -1,15 +1,19 @@
 {
   "name": "clase_8",
   "version": "1.0.0",
-  "description": "",
+  "description": "Para realizar el test de artillery en modo cluster, iniciar el servidor con node src/services/server.js --CLUSTER y despues en otra terminal ejecutar el comando npm run artillery.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "artillery": "artillery quick --count 50 -n 20 http://localhost:8080/info",
+    "artillery:fork":"artillery quick --count 50 -n 20 http://localhost:8080/info > resultado_artilleryFORK.txt",
+    "artillery:cluster": "artillery quick --count 50 -n 20 http://localhost:8080/info > resultado_artilleryCLUSTER.txt",
+    "inspect": "node --inspect src/index.js",
+    "profiling": "node --prof-process isolate-bloq.log > isolateFinal.txt",
     "autocannon": "autocannon -c 100 -d 20 http://localhost:8080/info",
     "0x": "0x src/services/server.js",
+    "start:cluster": "node src/index.js --CLUSTER",
     "prof": "node --prof src/services/server.js"
   },
   "author": "",
@@ -34,7 +38,7 @@
     "express-session": "^1.17.3",
     "firebase-admin": "^11.3.0",
     "forever": "^4.0.3",
-    "knex": "^2.3.0",
+    "knex": "^2.4.2",
     "log4js": "^6.7.1",
     "minimist": "^1.2.7",
     "moment": "^2.29.4",
@@ -49,5 +53,13 @@
     "sqlite3": "^5.1.2",
     "util": "^0.12.5",
     "uuid": "^9.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolima02/Backend-Lima-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicolima02/Backend-Lima-/issues"
+  },
+  "homepage": "https://github.com/nicolima02/Backend-Lima-#readme"
 }
