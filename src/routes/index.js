@@ -7,6 +7,7 @@ const denormalize = require("./desnormalized.js")
 const productosTest = require("./productostest.js")
 const usersRouter = require('./users.js')
 const randomRouter = require('./randoms.js')
+const sendCarrito = require('./send_carrito.js')
 
 
 rutaPrincipal.use("/productos", productosRouter)
@@ -16,6 +17,7 @@ rutaPrincipal.use("/productos-test", productosTest)
 rutaPrincipal.use("/denormalized", denormalize)
 rutaPrincipal.use("/", usersRouter)
 rutaPrincipal.use("/randoms", randomRouter)
+rutaPrincipal.use("/sendCarrito",sendCarrito)
 
 
 module.exports = rutaPrincipal

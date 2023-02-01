@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require('uuid');
 const Carrito = require("../controller/carrito");
 const carrito = require("../controller/carrito")
 const producto = require("../controller/productos")
-
+const {carritoModel} = require("../controller/schema")
+const passport = require('passport')
 const ProductosController = new producto
 const CarritoController = new carrito
 
@@ -41,18 +42,24 @@ rutaCarrito.get("/:id/productos", async(req,res)=>{
 
 rutaCarrito.post("/", async(req,res)=>{
     await CarritoController.iniciarMongo()
-
-    const timestamp = Date.now()
+    if (!req.session.passport){
+        res.status(401).json({msg:'iniciar sesion antes de hacer un carrito'})
+    }else{
+        const timestamp = Date.now()
     const carritoNew = {
         timestamp,
-        productos: []
+        productos: [],
+        user: req.session.passport?.user
     }
-    
+    const user = req.session.passport.user
     await CarritoController.save(carritoNew)
-    
+    const carrito = await carritoModel.find({user})
     res.json({
-        data: carritoNew
+        data: carrito[0],
     })
+    }
+
+    
 })
 
 rutaCarrito.post("/:id/productos", async(req,res)=>{

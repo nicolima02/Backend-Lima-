@@ -23,7 +23,8 @@ const productosSchema = new mongoose.Schema(
 const carritoSchema = new mongoose.Schema(
     {
             timestamp: {type: Number, require:true},
-            productos: {type: Array, require:true}
+            productos: {type: Array, require:true},
+            username: {type:String, require:true}
     }
 )
 
@@ -45,8 +46,13 @@ const chatSchema = new mongoose.Schema(
 
 const userSchema = new mongoose.Schema(
     {
+        email:{type:String, required:true, unique:true},
         username: {type:String, required:true, unique:true},
-        password: {type:String, required:true}
+        password: {type:String, required:true},
+        address: {type:String, required:true},
+        age: {type:Number, required:true},
+        phone: {type:String, required:true, unique:true},
+        avatar: {type:String}
     }
 )
 

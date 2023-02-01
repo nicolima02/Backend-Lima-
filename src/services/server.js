@@ -88,7 +88,8 @@ initWsServer(myHTTPServer);
 
 
 app.get("/", async (req, res) => {
-    if (req.session.passport?.user !== '404' && req.session.passport?.user) {
+    
+    if (req.session.passport?.user!== '404' && req.session.passport?.user) {
         await res.render("logged", {
         datos: { nombre: req.session.passport.user},
         layout: defaultLayoutPath,

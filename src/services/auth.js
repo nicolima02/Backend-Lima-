@@ -9,14 +9,16 @@ const session = require('express-session')
 const strategyOptions = {
     usernameField: "username",
     passwordField: "password",
+    emailField: "email",
     passReqToCallback: true
 }
 
 const signup = async(req,username,password,done)=>{
     console.log("signup")
+    const {email,address,age,phone,avatar} = req.body
     try {
         await initMongoDB()
-        const newUser = new userModel({username,password})
+        const newUser = new userModel({email,username,password,age,phone,address,avatar})
         newUser.password = await newUser.encryptPassword(password)
         await newUser.save()
         return done(null,newUser)
@@ -29,13 +31,13 @@ const signup = async(req,username,password,done)=>{
 const login = async(req,username,password,done) =>{
     console.log("login");
     let user = await userModel.findOne({username})
-    
     if (!user){
         return done(null, false, { message: 'Usuario no encontrado' });  
     }else{
-        const match = await user.matchPassword(password);
+        const match = await user.matchPassword(password);   
         if(match){
-            return done(null,user)   
+            return done(null,user)
+            
         }else{      
             console.log('contraseña invalida');
             return done(null,false,{message: 'Contraseña invalida'})

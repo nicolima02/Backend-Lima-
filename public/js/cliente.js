@@ -62,6 +62,7 @@ formsignup?.addEventListener("submit",async(ev)=>{
             password: password_sign.value
         }
         const url = 'http://localhost:8080/api/signup'
+
         response = await postData(url,data)
     } catch (error) {
         console.log(error);
