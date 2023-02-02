@@ -49,7 +49,7 @@ users.post(
     '/login',
     function(req, res, next) {
         passport.authenticate('login', function(err, user, info) {
-        req.session.passport= {user:user.username, email: user.email}
+        req.session.passport = {user:user.username, email: user.email}
         
         if (err) { return next(err); }
         if (!user) {

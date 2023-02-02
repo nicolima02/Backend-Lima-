@@ -37,7 +37,6 @@ const login = async(req,username,password,done) =>{
         const match = await user.matchPassword(password);   
         if(match){
             return done(null,user)
-            
         }else{      
             console.log('contraseña invalida');
             return done(null,false,{message: 'Contraseña invalida'})
