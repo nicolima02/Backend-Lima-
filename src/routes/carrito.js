@@ -52,6 +52,7 @@ rutaCarrito.post("/", async(req,res)=>{
         user: req.session.passport?.user
     }
     const user = req.session.passport.user
+    
     await CarritoController.save(carritoNew)
     const carrito = await carritoModel.find({user})
     res.json({

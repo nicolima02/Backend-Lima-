@@ -1,1 +1,8 @@
 MONGO_ATLAS = 
+EMAIL= gmail del receptor
+PASS= pass de gmail
+PORT=465
+SID= twilio sid
+AUTH = twilio auth
+TWILIO_PHONE= 
+WSP = whatsapp twilio

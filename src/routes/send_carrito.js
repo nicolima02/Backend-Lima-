@@ -5,6 +5,9 @@ const dontenv = require('dotenv')
 dontenv.config()
 const {initMongoDB, disconnectMongo} = require("../conexion.js")
 const {carritoModel} = require("../controller/schema")
+const {twilioClient} = require('../services/sms.js')
+const twilio = require('twilio')
+const { TrustProductsChannelEndpointAssignmentInstance } = require("twilio/lib/rest/trusthub/v1/trustProducts/trustProductsChannelEndpointAssignment")
 
 const mailOptions = {
     from: process.env.EMAIL,
@@ -22,6 +25,7 @@ sendCarrito.post("/", async(req,res)=>{
         
         const user = req.session.passport.user
         const mail = req.session.passport.email
+        const phone = req.session.passport.phone
         const carrito_usuario = await carritoModel.find({user})
         if(!carrito_usuario){
             res.status(404).json({msg:'Carrito no encontrado'})
@@ -32,15 +36,42 @@ sendCarrito.post("/", async(req,res)=>{
         }
         mailOptions.subject = `Nuevo pedido de ${user} , ${mail}`
         mailOptions.text = texto
+        const message = {
+            body: `Pedido confirmado`,
+            from: process.env.TWILIO_PHONE,
+            to: phone
+        }
+        const messageWSP = {
+            body: texto,
+            from: process.env.WSP,
+            to: phone
+        }
         try {
             const response = await transporter.sendMail(mailOptions)
+            const rresponse = await twilioClient.messages.create(message)
+            const rrresponse = await twilioClient.messages.create(messageWSP)
+            
             console.log('Mail enviado');
             } catch (error) {
                 console.log(error);
             }; 
+            try {
+                const response = await twilio(process.env.SID, process.env.AUTH).messages.create(message)
+                console.log('Mensaje enviado');
+                } catch (error) {
+                    console.log(error);
+                }; 
         }
         res.json({msg: 'mail enviado'})
     
+})
+
+sendCarrito.post("/wsp", async(req,res)=>{
+    try {
+        console.log(req.body);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 module.exports = sendCarrito
