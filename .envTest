@@ -5,4 +5,9 @@ PORT=465
 SID= twilio sid
 AUTH = twilio auth
 TWILIO_PHONE= 
-WSP = whatsapp twilio
+WSP = whatsapp:+14155238886
+
+
+
+
+CODIGO DE WHATSAPP DE TWILIO: join saved-result

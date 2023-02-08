@@ -8,6 +8,7 @@ const {carritoModel} = require("../controller/schema")
 const {twilioClient} = require('../services/sms.js')
 const twilio = require('twilio')
 const { TrustProductsChannelEndpointAssignmentInstance } = require("twilio/lib/rest/trusthub/v1/trustProducts/trustProductsChannelEndpointAssignment")
+const { log } = require("util")
 
 const mailOptions = {
     from: process.env.EMAIL,
@@ -41,16 +42,8 @@ sendCarrito.post("/", async(req,res)=>{
             from: process.env.TWILIO_PHONE,
             to: phone
         }
-        const messageWSP = {
-            body: texto,
-            from: process.env.WSP,
-            to: phone
-        }
         try {
             const response = await transporter.sendMail(mailOptions)
-            const rresponse = await twilioClient.messages.create(message)
-            const rrresponse = await twilioClient.messages.create(messageWSP)
-            
             console.log('Mail enviado');
             } catch (error) {
                 console.log(error);
@@ -60,7 +53,16 @@ sendCarrito.post("/", async(req,res)=>{
                 console.log('Mensaje enviado');
                 } catch (error) {
                     console.log(error);
-                }; 
+                };
+            try {
+                const response = await twilio(process.env.SID, process.env.AUTH).messages.create({
+                    body: texto,
+                    from: 'whatsapp:+14155238886',
+                    to: `whatsapp:${phone}`
+                })
+            } catch (error) {
+                console.log(error);
+            } 
         }
         res.json({msg: 'mail enviado'})
     
