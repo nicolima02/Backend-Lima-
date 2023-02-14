@@ -1,12 +1,13 @@
-MONGO_ATLAS = 
-EMAIL= gmail del receptor
-PASS= pass de gmail
+MONGO_ATLAS=mongodb+srv://nicolima:<AXR6rX0SYbupWPfj@cluster0.fd1ldtn.mongodb.net/test
+EMAIL=nikitolima123456789@gmail.com
+PASS=mxugcxynbdkcwadt
 PORT=465
-SID= twilio sid
-AUTH = twilio auth
-TWILIO_PHONE= 
-WSP = whatsapp:+14155238886
-
+NAME=Lila Rippin
+HOST=smtp.ethereal.email
+SID= AC7c738d5314d4d3d99e63dd2c0a7f18e5
+AUTH = d5fc7605a733731b87b1eca91328f47b
+TWILIO_PHONE= +12349311781
+WSP =whatsapp:+14155238886
 
 
 
