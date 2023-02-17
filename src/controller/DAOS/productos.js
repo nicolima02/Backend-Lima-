@@ -4,26 +4,33 @@
 // const options = require('../../options/db')
 // const file = path.resolve(__dirname, "../../productos.txt")
 const { default: mongoose } = require("mongoose")
-const {initMongoDB, disconnectMongo} = require("../conexion.js")
-const {productoModel} = require("./schema")
+const {initMongoDB, disconnectMongo} = require("../../conexion.js")
+const {productoModel} = require("../schema")
+const {ProductsRepository} = require('./repository.js')
 
+const producto = new ProductsRepository
 
 class Productos {
     async iniciarMongo(){
         await initMongoDB()
     }
 
-    async getAll(){
-        return await productoModel.find()
+    async getAllProd(){
+        return await producto.getAll()
     }
 
     async getById(id){
-        return await productoModel.find({_id: id})
+        try {
+            return await producto.getById(id)
+        } catch (error) {
+            
+        }
+        
     }
 
     async saveProduct(product){
         try{
-            await productoModel.create(product)
+            await producto.save(product)
         }catch(error){
             console.log(error)
         }
@@ -48,4 +55,4 @@ class Productos {
     }
 }
 
-module.exports = Productos;
+module.exports = {Productos};

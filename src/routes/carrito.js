@@ -2,12 +2,12 @@ const {Router} = require("express")
 const rutaCarrito = Router()
 const fs = require("fs/promises")
 const { v4: uuidv4 } = require('uuid');
-const Carrito = require("../controller/carrito");
-const carrito = require("../controller/carrito")
-const producto = require("../controller/productos")
+// const Carrito = require("../controller/carrito");
+const carrito = require("../controller/DAOS/carrito")
+const {Productos} = require("../controller/DAOS/productos")
 const {carritoModel} = require("../controller/schema")
 const passport = require('passport')
-const ProductosController = new producto
+const ProductosController = new Productos
 const CarritoController = new carrito
 
 
@@ -69,7 +69,7 @@ rutaCarrito.post("/:id/productos", async(req,res)=>{
     const id = req.params.id
     const indice = carritos.findIndex(uncarrito => uncarrito.id == id)
     const productosCarrito = carritos[indice].productos
-    const productos = await ProductosController.getAll()
+    const productos = await ProductosController.getAllProd()
     let {id_prod, cant} = req.body
 
     const existeProducto = productos.findIndex(unproducto => unproducto.id == id_prod)

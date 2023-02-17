@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
+    "start:mongo": "node src/index.js MONGO",
+    "start:file": "node src/index.js FILE",
     "dev": "nodemon src/index.js",
     "artillery:fork": "artillery quick --count 50 -n 20 http://localhost:8080/info > resultado_artilleryFORK.txt",
     "artillery:cluster": "artillery quick --count 50 -n 20 http://localhost:8080/info > resultado_artilleryCLUSTER.txt",

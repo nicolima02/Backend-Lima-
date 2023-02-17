@@ -2,7 +2,7 @@ const {Router} = require("express")
 const rutaProductos = Router()
 const fs = require("fs/promises")
 const path = require("path")
-const producto= require("../controller/productos")
+const {Productos} = require("../controller/DAOS/productos.js")
 const options = require('../../options/db')
 const { validarAdmin } = require('../middlewares/admin');
 const { socketEmit } = require('../services/socket');
@@ -10,46 +10,49 @@ const { socketEmit } = require('../services/socket');
 
 const filePath = path.resolve(__dirname, "../../productos.txt")
 
-const ProductosController = new producto
+const ProductosController = new Productos
 
 
 
 rutaProductos.get("/", async(req,res)=>{
-    ProductosController.iniciarMongo()
-    const productos = await ProductosController.getAll()
+    const productos = await ProductosController.getAllProd()
     res.json({
         data:productos
-    })
-    
+    }) 
 })
 
 
 rutaProductos.get("/:id", async(req, res)=>{
-    ProductosController.iniciarMongo()
     const id = req.params.id
-    const productos = await ProductosController.getAll()
-    const indice = productos.findIndex(unproducto => unproducto.id == id)
+    // const productos = await ProductosController.getAllProd()
+    // const indice = productos.findIndex(unproducto => unproducto.id == id)
 
-    if(indice < 0){
-        return res.status(404).json(
-            {
-                msg: "El producto no existe"
-            }
-        )
+    // if(indice < 0){
+    //     return res.status(404).json(
+    //         {
+    //             msg: "El producto no existe"
+    //         }
+    //     )
+    // }
+    const producto = await ProductosController.getById(id)
+    if(producto){
+            res.json({
+            msg:`devolviendo el producto con id ${id}`,
+            data: producto
+        })
+    }else{
+        res.status(404).json({
+            msg:"Producto no encontrado"
+        })
     }
-
-    res.json({
-        msg:`devolviendo el producto con id ${id}`,
-        data: productos[indice]
-    })
+    
     
 })
 
 
 
 rutaProductos.post("/", validarAdmin, async(req,res)=>{
-    await ProductosController.iniciarMongo()
-    const productos = await ProductosController.getAll()
+    const productos = await ProductosController.getAllProd()
     
     let {title, price, thumbnail, codigo, desc, stock} = req.body
     const timestamp = Date.now()
@@ -81,13 +84,12 @@ rutaProductos.post("/", validarAdmin, async(req,res)=>{
 
 
 rutaProductos.put("/:id",validarAdmin, async(req,res)=>{
-    await ProductosController.iniciarMongo()
     const id = req.params.id
     let {title,price,thumbnail, codigo, desc, stock} = req.body
     const producto = await ProductosController.getById(id)
     const productoViejo = producto
     const timestamp = Date.now()
-    const productos = await ProductosController.getAll()
+    const productos = await ProductosController.getAllProd()
     const indice = productos.findIndex(unproducto => unproducto.id == id)
 
     if(indice < 0){

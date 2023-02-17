@@ -2,8 +2,12 @@
 // const knex = require('knex')
 // const { socketEmit } = require('../services/socket')
 const { default: mongoose } = require("mongoose")
-const {initMongoDB, disconnectMongo} = require("../conexion.js")
-const {chatModel} = require("./schema")
+const {initMongoDB, disconnectMongo} = require("../../conexion.js")
+const {chatModel} = require("../schema")
+const {asDTO} = require("../DTO/chat.dto.js")
+const {MessagesRepository} = require('./repository')
+
+const messagesController = new MessagesRepository
 
 class chatMongo {
     async iniciarMongo(){
@@ -11,7 +15,8 @@ class chatMongo {
     }
 
     async getMessage(){
-        return await chatModel.find()
+        const docs = messagesController.getAll()
+        return docs
     }
 
     async postMessage(mensaje){

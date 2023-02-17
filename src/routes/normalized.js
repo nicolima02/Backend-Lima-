@@ -1,6 +1,6 @@
 const {Router} = require("express")
 const normalizedRouter = Router()
-const {getAllMessages} = require("../controller/messages")
+const {getAllMessages} = require("../controller/DAOS/messages")
 
 normalizedRouter.get("/" ,async(req,res)=>{
     const mensajes = await getAllMessages()

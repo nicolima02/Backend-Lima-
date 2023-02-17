@@ -1,8 +1,7 @@
 const { default: mongoose } = require("mongoose")
-const {initMongoDB, disconnectMongo} = require("../conexion.js")
-const {carritoModel} = require("./schema")
-
-
+const {initMongoDB, disconnectMongo} = require("../../conexion")
+const {carritoModel} = require("../schema")
+const {asDTO} = require("../DTO/carrito.dto.js")
 
 
 class Carrito {
@@ -11,7 +10,8 @@ class Carrito {
     }
 
     async getAll() {
-        return await carritoModel.find()
+        const carr = await carritoModel.find()
+        return asDTO(carr)
     }
 
     async getById(id) {

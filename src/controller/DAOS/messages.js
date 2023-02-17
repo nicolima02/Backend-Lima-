@@ -1,5 +1,5 @@
 const {normalize, schema, denormalize} = require("normalizr")
-const {chatModel} = require("./schema")
+const {chatModel} = require("../schema")
 const util = require("util")
 const fs = require("fs/promises")
 const path = require("path")

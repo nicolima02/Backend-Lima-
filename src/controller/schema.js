@@ -69,4 +69,4 @@ const productoModel = mongoose.model(prodCollection, productosSchema)
 const carritoModel = mongoose.model(carritoCollection, carritoSchema)
 const chatModel = mongoose.model(chatCollection, chatSchema)
 const userModel = mongoose.model(userCollection, userSchema)
-module.exports = {productoModel, carritoModel, chatModel, userModel}
+module.exports = {productoModel, carritoModel, chatModel, userModel, productosSchema, chatSchema}
