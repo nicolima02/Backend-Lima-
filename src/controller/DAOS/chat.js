@@ -14,13 +14,13 @@ class chatMongo {
         await initMongoDB()
     }
 
-    async getMessage(){
+    async getAll(){
         const docs = messagesController.getAll()
         return docs
     }
 
     async postMessage(mensaje){
-        await chatModel.create(mensaje)
+        await messagesController.postMessage(mensaje)
     }
 }
 

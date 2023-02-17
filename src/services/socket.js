@@ -20,20 +20,18 @@ const initWsServer = (server) => {
     io.on('connection', (socket) => {
 
     socket.on('allProducts', async () => {
-        const productos = await ProductosController.getAllProd();
-        
+        const productos = await ProductosController.getAllProd();    
         productos.forEach((unProducto) => {
         socket.emit('producto', unProducto);
         });
         
     });
     socket.on("allChat", async ()=>{       
-        const chatCompleto = await ChatController.getMessage()
+        const chatCompleto = await ChatController.getAll()
         chatCompleto.forEach((unMensaje)=>{
             socket.emit('mensaje', unMensaje)
         })
         socket.on("mensajeRecibido", (mensaje)=>{
-            
             ChatController.postMessage(mensaje)
             io.emit("mensajeAlChat", mensaje)
         })

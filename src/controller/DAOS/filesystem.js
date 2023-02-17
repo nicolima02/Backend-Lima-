@@ -39,6 +39,7 @@ class FileMsg{
     async save(obj){
         try {
             const productos = await this.getAll()
+            console.log(productos);
             productos.push(obj)
             await fs.promises.writeFile(this.path, JSON.stringify(productos))
             return obj

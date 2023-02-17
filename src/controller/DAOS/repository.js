@@ -1,5 +1,4 @@
 const {asDTO} = require('../DTO/productos.dto.js')
-const {asDTOMSG} = require('../DTO/chat.dto.js')
 const {getDAOProds, getDAOMsg} = require('./factory.js')
 
 class ProductsRepository{
@@ -33,7 +32,7 @@ class MessagesRepository{
         this.dao = getDAOMsg()
     }
 
-    async save(msg){
+    async postMessage(msg){
         return await this.dao.save(msg)
     }
 
