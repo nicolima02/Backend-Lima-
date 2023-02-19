@@ -5,7 +5,7 @@ const { default: mongoose } = require("mongoose")
 const {initMongoDB, disconnectMongo} = require("../../conexion.js")
 const {chatModel} = require("../schema")
 const {asDTO} = require("../DTO/chat.dto.js")
-const {MessagesRepository} = require('./repository')
+const {MessagesRepository} = require('../repository/mensajes.repository.js')
 
 const messagesController = new MessagesRepository
 

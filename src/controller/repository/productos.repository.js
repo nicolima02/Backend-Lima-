@@ -1,5 +1,5 @@
 const {asDTO} = require('../DTO/productos.dto.js')
-const {getDAOProds, getDAOMsg} = require('./factory.js')
+const {getDAOProds} = require('../DAOS/factory.js')
 
 class ProductsRepository{
     constructor(){
@@ -27,19 +27,6 @@ class ProductsRepository{
     }
 }
 
-class MessagesRepository{
-    constructor(){
-        this.dao = getDAOMsg()
-    }
 
-    async postMessage(msg){
-        return await this.dao.save(msg)
-    }
 
-    async getAll(){   
-        return await this.dao.getAll()
-    }
-    
-}
-
-module.exports = {ProductsRepository, MessagesRepository}
+module.exports = {ProductsRepository}

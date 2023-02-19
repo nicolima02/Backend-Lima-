@@ -6,7 +6,7 @@
 const { default: mongoose } = require("mongoose")
 const {initMongoDB, disconnectMongo} = require("../../conexion.js")
 const {productoModel} = require("../schema")
-const {ProductsRepository} = require('./repository.js')
+const {ProductsRepository} = require('../repository/productos.repository.js')
 
 const producto = new ProductsRepository
 

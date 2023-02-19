@@ -24,16 +24,6 @@ rutaProductos.get("/", async(req,res)=>{
 
 rutaProductos.get("/:id", async(req, res)=>{
     const id = req.params.id
-    // const productos = await ProductosController.getAllProd()
-    // const indice = productos.findIndex(unproducto => unproducto.id == id)
-
-    // if(indice < 0){
-    //     return res.status(404).json(
-    //         {
-    //             msg: "El producto no existe"
-    //         }
-    //     )
-    // }
     const producto = await ProductosController.getById(id)
     if(producto){
             res.json({
