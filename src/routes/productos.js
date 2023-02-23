@@ -138,18 +138,18 @@ rutaProductos.put("/:id",validarAdmin, async(req,res)=>{
 })
 
 rutaProductos.delete("/:id", validarAdmin, async(req,res)=>{
-    await ProductosController.iniciarMongo()
     const id = req.params.id
-    const productos = await ProductosController.getAll()
-    const indice = productos.findIndex(unproducto => unproducto.id == id)
+    // const productos = await ProductosController.getAllProd()
+    // console.log(productos);
+    // const indice = productos.findIndex(unproducto => unproducto.id == id)
 
-    if(indice < 0){
-        return res.status(404).json(
-            {
-                msg: "El producto no existe"
-            }
-        )
-    }
+    // if(indice < 0){
+    //     return res.status(404).json(
+    //         {
+    //             msg: "El producto no existe"
+    //         }
+    //     )
+    // }
     await ProductosController.deleteById(id)
     res.json({
         msg: "producto borrado"
