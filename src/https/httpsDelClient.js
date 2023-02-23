@@ -26,6 +26,4 @@ const req = https.request(options, function(res){
 
 const httpsDelClient = () => req.end()
 
-req.end()
-
 module.exports = httpsDelClient

@@ -9,7 +9,7 @@ const data = {
     stock: 45
 }
 
-const axiosPost = async() =>{
+const axiosPost = async(data) =>{
     try {
         const response = await axios.post('http://localhost:8080/api/productos', data)
         console.log(response.data);
@@ -20,4 +20,4 @@ const axiosPost = async() =>{
 
 
 
-module.exports = axiosPost()
+module.exports = {axiosPost}
