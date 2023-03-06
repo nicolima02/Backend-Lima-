@@ -4,17 +4,13 @@
 // const options = require('../../options/db')
 // const file = path.resolve(__dirname, "../../productos.txt")
 const { default: mongoose } = require("mongoose")
-const {initMongoDB, disconnectMongo} = require("../../conexion.js")
+
 const {productoModel} = require("../schema")
 const {ProductsRepository} = require('../repository/productos.repository.js')
 
 const producto = new ProductsRepository
 
 class Productos {
-    async iniciarMongo(){
-        await initMongoDB()
-    }
-
     async getAllProd(){
         return await producto.getAll()
     }
@@ -48,10 +44,6 @@ class Productos {
     async updatear(prod){
         let {title,price,thumbnail, codigo, desc, stock, cant, timestamp, id} = prod
         await productoModel.updateOne({_id: id}, {$set:{title, price, thumbnail, codigo, desc, stock, cant, timestamp}})
-    }
-
-    async cerrarMongo(){
-        await disconnectMongo()
     }
 }
 

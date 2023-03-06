@@ -19,6 +19,9 @@ const minimist = require('minimist')
 const os = require("os")
 const compression = require('compression')
 const loggers = require('../utils/loggers')
+const {graphqlHTTP} = require('express-graphql')
+const {graphqlSchema, graphqlRoot} = require('./graphql.js')
+
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -68,6 +71,13 @@ initMongoDB();
 
 passport.use("login", loginFunc);
 passport.use("signup", signupFunc);
+
+app.use('/graphql', graphqlHTTP({
+    schema: graphqlSchema,
+    rootValue: graphqlRoot,
+    graphiql:true
+}))
+
 app.set("view engine", "hbs");
 app.set("views", viewFolderPath);
 app.engine(

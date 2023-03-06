@@ -1,13 +1,6 @@
 const axios = require('axios')
 
-const data = {
-    title: "cartel 3",
-    price: 4900,
-    thumbnail: "imagen",
-    codigo: 5555,
-    desc: "cartel",
-    stock: 45
-}
+
 
 const axiosPost = async(data) =>{
     try {
