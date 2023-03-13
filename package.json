@@ -18,6 +18,7 @@
     "start:cluster": "node src/index.js --CLUSTER",
     "prof": "node --prof src/services/server.js",
     "mocha": "mocha src/test/test.js",
+    "adonis:help": "adonis --help",
     "jest": "jest"
   },
   "author": "",
