@@ -1,6 +1,5 @@
 const { default: mongoose } = require("mongoose")
 const {initMongoDB, disconnectMongo} = require("../../conexion")
-// const {carritoModel} = require("../schema")
 const {CarritosRepository} = require('../repository/carritos.repository.js')
 const {asDTO} = require("../DTO/carrito.dto.js")
 const carritoModel = new CarritosRepository
