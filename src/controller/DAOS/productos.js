@@ -1,10 +1,4 @@
-// const fs = require('fs');
-// const path = require("path")
-// const knex = require('knex');
-// const options = require('../../options/db')
-// const file = path.resolve(__dirname, "../../productos.txt")
 const { default: mongoose } = require("mongoose")
-
 const {productoModel} = require("../schema")
 const {ProductsRepository} = require('../repository/productos.repository.js')
 

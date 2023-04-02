@@ -1,9 +1,4 @@
-// const chatoptions = require('../../options/chatDB')
-// const knex = require('knex')
-// const { socketEmit } = require('../services/socket')
-const { default: mongoose } = require("mongoose")
-const {initMongoDB, disconnectMongo} = require("../../conexion.js")
-const {chatModel} = require("../schema")
+const {initMongoDB} = require("../../conexion.js")
 const {asDTO} = require("../DTO/chat.dto.js")
 const {MessagesRepository} = require('../repository/mensajes.repository.js')
 

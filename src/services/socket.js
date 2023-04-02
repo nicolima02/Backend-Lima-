@@ -1,10 +1,7 @@
 const socketIo = require('socket.io');
 require('dotenv').config()
-// const { ProductosController } = require('../controller/productos');
 const {Productos} = require('../controller/DAOS/productos')
-const options = require('../../options/db')
 const chatMongo = require('../controller/DAOS/chat');
-const {normalize, schema} = require("normalizr")
 
 const ChatController = new chatMongo
 const ProductosController = new Productos

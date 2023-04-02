@@ -1,4 +1,3 @@
-const {asDTO} = require('../DTO/productos.dto.js')
 const {getDAOProds} = require('../DAOS/factory.js')
 
 class ProductsRepository{
@@ -15,7 +14,7 @@ class ProductsRepository{
         if (docs.length === 0){
             return docs
         }else{
-            const prodDTO = asDTO(docs)
+            const prodDTO = docs
             return prodDTO
         }
         
@@ -23,7 +22,7 @@ class ProductsRepository{
 
     async getById(id){
         const doc = await this.dao.getById(id)
-        return await asDTO(doc)
+        return await doc
     }
 }
 

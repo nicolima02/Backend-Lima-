@@ -3,18 +3,16 @@ const users = Router()
 const express = require("express")
 users.use(express.static("public"))
 const passport = require('passport')
-const login = require('../controller/user.js')
-const isLoggedIn = require('../middlewares/islogged.js')
 const passportOptions= {badRequestMessage: 'falta username/password'}
 const {transporter, mailOptions} = require('../services/email')
-const {sendMail} = require('../controller/email.controller.js')
 const dontenv = require('dotenv')
+const {initMongoDB} = require('../conexion.js')
 dontenv.config()
 
 
 
 users.post('/signup',async(req, res,next) => {
-    
+    initMongoDB()
     passport.authenticate('signup', passportOptions, async(err, user, info) => {
         
     if (err) {
@@ -35,19 +33,10 @@ users.post('/signup',async(req, res,next) => {
 
 
 
-
-// users.post(
-//     '/login',
-//     passport.authenticate('login', passportOptions),
-//     (req, res) => {  
-//         if(req.user){
-//             res.json({msg: 'Bienvenido', user: req.user.username});
-//         }
-//     }
-// );
 users.post(
     '/login',
     function(req, res, next) {
+        initMongoDB()
         passport.authenticate('login', function(err, user, info) {
         req.session.passport = {user:user.username, email: user.email, phone: user.phone}
         

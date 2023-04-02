@@ -1,14 +1,8 @@
 const {Router} = require("express")
 const rutaProductos = Router()
-const fs = require("fs/promises")
-const path = require("path")
 const {Productos} = require("../controller/DAOS/productos.js")
-const options = require('../../options/db')
 const { validarAdmin } = require('../middlewares/admin');
 const { socketEmit } = require('../services/socket');
-
-
-const filePath = path.resolve(__dirname, "../../productos.txt")
 
 const ProductosController = new Productos
 
@@ -139,17 +133,6 @@ rutaProductos.put("/:id",validarAdmin, async(req,res)=>{
 
 rutaProductos.delete("/:id", validarAdmin, async(req,res)=>{
     const id = req.params.id
-    // const productos = await ProductosController.getAllProd()
-    // console.log(productos);
-    // const indice = productos.findIndex(unproducto => unproducto.id == id)
-
-    // if(indice < 0){
-    //     return res.status(404).json(
-    //         {
-    //             msg: "El producto no existe"
-    //         }
-    //     )
-    // }
     await ProductosController.deleteById(id)
     res.json({
         msg: "producto borrado"

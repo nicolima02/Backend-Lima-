@@ -3,12 +3,10 @@ const sendCarrito = Router()
 const {transporter} = require('../services/email')
 const dontenv = require('dotenv')
 dontenv.config()
-const {initMongoDB, disconnectMongo} = require("../conexion.js")
+const {initMongoDB,} = require("../conexion.js")
 const {carritoModel} = require("../controller/schema")
-const {twilioClient} = require('../services/sms.js')
+
 const twilio = require('twilio')
-const { TrustProductsChannelEndpointAssignmentInstance } = require("twilio/lib/rest/trusthub/v1/trustProducts/trustProductsChannelEndpointAssignment")
-const { log } = require("util")
 
 const mailOptions = {
     from: process.env.EMAIL,
@@ -27,20 +25,20 @@ sendCarrito.post("/", async(req,res)=>{
         const user = req.session.passport.user
         const mail = req.session.passport.email
         const phone = req.session.passport.phone
-        const carrito_usuario = await carritoModel.find({user})
+        const carrito_usuario = await carritoModel.find({username: user})
         if(!carrito_usuario){
             res.status(404).json({msg:'Carrito no encontrado'})
         }
         let texto = `Pedido:\n`
-        for(let i in carrito_usuario[0].productos){  
-            texto += `${carrito_usuario[0].productos[i].title} x ${carrito_usuario[0].productos[i].cant}\n`
+        for(let i in carrito_usuario[carrito_usuario.length -1].productos){  
+            texto += `${carrito_usuario[carrito_usuario.length -1].productos[i].title} x ${carrito_usuario[carrito_usuario.length -1].productos[i].cant}\n`
         }
-        mailOptions.subject = `Nuevo pedido de ${user} , ${mail}`
+        mailOptions.subject = `Nuevo pedido de ${user},${mail}`
         mailOptions.text = texto
         const message = {
             body: `Pedido confirmado`,
-            from: process.env.TWILIO_PHONE,
-            to: phone
+            from: process.env.WSP,
+            to: `whatsapp:${phone}`
         }
         try {
             const response = await transporter.sendMail(mailOptions)
@@ -57,8 +55,8 @@ sendCarrito.post("/", async(req,res)=>{
             try {
                 const response = await twilio(process.env.SID, process.env.AUTH).messages.create({
                     body: texto,
-                    from: 'whatsapp:+14155238886',
-                    to: `whatsapp:${phone}`
+                    from: process.env.WSP,
+                    to: `whatsapp:${process.env.WSPADMIN}`
                 })
             } catch (error) {
                 console.log(error);
@@ -68,12 +66,5 @@ sendCarrito.post("/", async(req,res)=>{
     
 })
 
-sendCarrito.post("/wsp", async(req,res)=>{
-    try {
-        console.log(req.body);
-    } catch (error) {
-        console.log(error);
-    }
-})
 
 module.exports = sendCarrito

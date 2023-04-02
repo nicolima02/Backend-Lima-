@@ -40,7 +40,6 @@ async function postData(url = '', data = {}) {
     }
 
 formlogin?.addEventListener("submit", async(ev) =>{
-    // ev.preventDefault()
     try{
         const data = {
             username: username.value,
@@ -55,7 +54,6 @@ formlogin?.addEventListener("submit", async(ev) =>{
 })
 
 formsignup?.addEventListener("submit",async(ev)=>{
-    // ev.preventDefault()
     try {
         const data = {
             username: username_sign.value,
@@ -69,23 +67,6 @@ formsignup?.addEventListener("submit",async(ev)=>{
     }
 })
 
-
-// formloginComplete.addEventListener("submit", async(ev) =>{
-//     //ev.preventDefault()
-//     try{
-//         const data = {
-//             username: username.value,
-//             password: password.value
-//         }
-//         console.log("psot")
-//         const url = 'http://localhost:8080/api/login'
-//         response = await postData(url, data)   
-        
-//     }catch(err){
-//         console.log(err)
-//     }
-
-// })
 
 form?.addEventListener('submit', async (ev) =>{
     ev.preventDefault()
@@ -114,6 +95,7 @@ formChat.addEventListener('submit', (ev)=>{
     ev.preventDefault()
     if(inputMail.value !== ""){
         console.log("Se envio el mensaje")
+        
         const mensaje ={
             author:{
             mail: inputMail.value,

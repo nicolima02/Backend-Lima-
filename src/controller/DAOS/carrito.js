@@ -1,7 +1,10 @@
 const { default: mongoose } = require("mongoose")
 const {initMongoDB, disconnectMongo} = require("../../conexion")
-const {carritoModel} = require("../schema")
+// const {carritoModel} = require("../schema")
+const {CarritosRepository} = require('../repository/carritos.repository.js')
 const {asDTO} = require("../DTO/carrito.dto.js")
+const carritoModel = new CarritosRepository
+
 
 
 class Carrito {
@@ -10,17 +13,17 @@ class Carrito {
     }
 
     async getAll() {
-        const carr = await carritoModel.find()
-        return asDTO(carr)
+        const carr = await carritoModel.getAllCarr()
+        return carr
     }
 
     async getById(id) {
-        return await carritoModel.find({_id: id})
+        return await carritoModel.getById()
     }
 
     async save(carrito) {
         try{
-            await carritoModel.create(carrito)
+            await carritoModel.save(carrito)
         }catch(error){
             console.log(error)
         }
@@ -44,4 +47,4 @@ class Carrito {
 }
 
 
-module.exports = Carrito
+module.exports = {Carrito}

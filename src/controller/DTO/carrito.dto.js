@@ -1,5 +1,6 @@
 class CarritosDTO {
-    constructor({timestamp, productos, username}){
+    constructor({_id, timestamp, productos, username}){
+        this._id = _id
         this.timestamp = timestamp
         this.productos = productos
         this.username = username

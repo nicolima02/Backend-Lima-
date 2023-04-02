@@ -22,6 +22,4 @@ const loggers = (param) =>{
 }
 
 
-//appenders:['consola'], level:'info'
-
 module.exports = loggers

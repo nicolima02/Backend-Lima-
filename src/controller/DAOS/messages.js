@@ -1,6 +1,5 @@
 const {normalize, schema, denormalize} = require("normalizr")
 const {chatModel} = require("../schema")
-const util = require("util")
 const fs = require("fs/promises")
 const path = require("path")
 const normalizedPath = path.resolve(__dirname, "../../normalized.json")
@@ -23,9 +22,6 @@ const getAllMessages = async () => {
 
     let normalizedMessages = normalize(messagesOriginalData, msgesSchema);
     let contenido = JSON.stringify(normalizedMessages, null, '\t')
-
-    await fs.writeFile(normalizedPath, contenido)
-    // console.log(util.inspect(normalizedMessages, true, 3, true));
     return JSON.parse(contenido);
     } catch (err) {
     console.log('ERROR');

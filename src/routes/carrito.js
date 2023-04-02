@@ -1,14 +1,10 @@
 const {Router} = require("express")
 const rutaCarrito = Router()
-const fs = require("fs/promises")
-const { v4: uuidv4 } = require('uuid');
-// const Carrito = require("../controller/carrito");
-const carrito = require("../controller/DAOS/carrito")
+const {Carrito} = require("../controller/DAOS/carrito")
 const {Productos} = require("../controller/DAOS/productos")
 const {carritoModel} = require("../controller/schema")
-const passport = require('passport')
 const ProductosController = new Productos
-const CarritoController = new carrito
+const CarritoController = new Carrito
 
 
 rutaCarrito.get("/", async(req,res)=>{
@@ -23,6 +19,7 @@ rutaCarrito.get("/", async(req,res)=>{
 rutaCarrito.get("/:id/productos", async(req,res)=>{
     await CarritoController.iniciarMongo()
     const carritos = await CarritoController.getAll()
+    console.log(carritos);
     const id = req.params.id
     const indice = carritos.findIndex(uncarrito => uncarrito.id == id)
     if(indice < 0){
@@ -49,14 +46,16 @@ rutaCarrito.post("/", async(req,res)=>{
     const carritoNew = {
         timestamp,
         productos: [],
-        user: req.session.passport?.user
+        username: req.session.passport?.user
     }
     const user = req.session.passport.user
-    
-    await CarritoController.save(carritoNew)
-    const carrito = await carritoModel.find({user})
+    let carrito = await carritoModel.find({username: user})
+    if (carrito[carrito.length -1].productos.length > 0){
+        await CarritoController.save(carritoNew)
+    }    
+    carrito = await carritoModel.find({username:user})
     res.json({
-        data: carrito[0],
+        data: carrito[carrito.length -1],
     })
     }
 
@@ -89,8 +88,6 @@ rutaCarrito.post("/:id/productos", async(req,res)=>{
     const existeEnLista = productosCarrito.findIndex(unproducto => unproducto.id == id_prod)
     cant = parseInt(cant)
     if(existeEnLista !== -1){
-        
-        cant += productosCarrito[existeEnLista].cant
         const prodActualizado = {
             title: productoAdd.title,
             price: productoAdd.price,
