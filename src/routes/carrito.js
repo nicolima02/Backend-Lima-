@@ -9,7 +9,7 @@ const CarritoController = new Carrito
 
 rutaCarrito.get("/", async(req,res)=>{
     CarritoController.iniciarMongo()
-    const carritos = await CarritoController.getAll()
+    const carritos = await carritoModel.find({})
     res.json({
         data:carritos
     })
@@ -18,7 +18,7 @@ rutaCarrito.get("/", async(req,res)=>{
 
 rutaCarrito.get("/:id/productos", async(req,res)=>{
     await CarritoController.iniciarMongo()
-    const carritos = await CarritoController.getAll()
+    const carritos = await carritoModel.find({})
     console.log(carritos);
     const id = req.params.id
     const indice = carritos.findIndex(uncarrito => uncarrito.id == id)
